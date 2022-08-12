@@ -1472,7 +1472,271 @@ previously copied from it.
             "status": 400
         }
 
+# Group Bacth
 
+## Devices [/devices-batch]
+
+### Create Devices in batch [POST]
+
+Create Devices in process of batch.
+
+ + Request (application/json)
+
+    + Headers
+
+           Authorization: Bearer JWT
+    
+    + Body
+
+        {
+            "devices": 
+            [
+                {
+                    "name_prefix":"sensor_temp",
+                    "quantity":"10",
+                    "associate_certificates":"false"
+                }
+            ]
+        }
+
++ Response 200 (application/json)
+
+   + Headers
+
+	   Content-Type: application/json
+
+    + Body
+        
+        {
+		    "message": "Creates in batch the devices.",
+  		    "status": 200
+        }
+        
++ Response 400 (application/json)
+        
+        {
+            "errors": 
+            {
+                "name_prefix": 
+                    [
+                        "Missing name_prefix for required field."
+                    ]
+            },
+            "message": "Error in process batch create devices."
+        }
+
++ Response 400 (application/json)
+            
+        {
+            "errors": 
+            {
+                "quantity": 
+                [
+                    "Missing quantity for required field."
+                ]
+            },
+            "message": "Error in process batch create devices."
+        }
+            
++ Response 400 (application/json)
+            
+        {
+            "errors": 
+            {
+                "quantity": 
+                [
+                    "Quantity numbers must be greater than 1"
+                ]
+            },
+            "message": "Error in process batch create devices."
+        }
+
++ Response 400 (application/json)
+        
+        {
+            "errors": 
+            {
+                "associate_certificates": 
+                [
+                "Missing associate_certificates for required field."
+                ]
+            },
+            "message": "Error in process batch create devices."
+        }
+
++ Response 400 (application/json)
+        
+        {
+            "errors": 
+            {
+                "associate_certificates": 
+                [
+                    "associate_certificates must be boolean."
+                ]
+            },
+            "message": "Error in process batch create devices."
+        }
+
+
+## Devices [/devices-batch]
+
+### Delete Devices in batch [DELETE]
+
+Delete the Devices in process of batch, with ids parameters 
+
++ Request (application/json)
+
+    + Headers
+
+            Authorization: Bearer JWT
+
+    + Body
+
+        {
+            "devices": 
+            [
+                {
+                    [1,2,3,5,7]
+                }
+            ]
+        }
+
+
+## Devices [/devices-batch-csv]
+
+### Create Devices in batch with file in format .CSV [POST]
+
++ Request (application/json)
+
+    + Headers
+
+        Authorization: Bearer JWT
+
++ Response 200 (application/json)
+
+   + Headers
+
+	   Content-Type: application/json
+
+    + Body
+        
+        {
+	        "message": "Create Devices in batch of read File.",
+  	        "status": 200
+        }
+ 
++ Response 400 (application/json)
+     
+        {
+            "errors": 
+            {
+                "templates": 
+                [
+                    "Missing File for required."
+                ]
+            },
+            "message": "Error in process batch create Devices of File."
+        }
+            
++ Response 400 (application/json)
+        
+        {
+            "errors": 
+            {
+                "templates": 
+                [
+                    Type of File not is CSV."
+                ]
+            },
+            "message": "Error in process batch create Devices of File."
+            }
+
++ Response 400 (application/json)
+            
+        {
+            "errors": 
+            {
+                "templates": 
+                [
+                    "Format of File is Incorret."
+                ]
+            },
+            "message": "Error in process batch create Devices of File."
+        }
+
+## Templates [/templates-batch]
+
+### Delete Templates in batch [DELTE]
+
+Delete the templates in process of batch, with ids parameters. 
+
++ Request (application/json)
+
+    + Headers
+
+        Authorization: Bearer JWT
+ 
+    + Body
+        {
+            "templates": 
+            [
+                {
+                 [1,2,3,5,7,44,77]
+                }
+            ]
+        }
+
++ Response 200 (application/json)
+
+   + Headers
+
+	   Content-Type: application/json
+
+    + Body
+
+       {
+	    "message": "DELETE in batch the templates.",
+  	    "status": 200
+       }
+ 
++ Response 400 (application/json)
+        
+        {
+            "errors": {
+                "templates": 
+                    [
+                    "Missing ids for required field."
+                    ]
+            },
+            "message": "Error in process batch DELETE Templates."
+        }
+
++ Response 400 (application/json)
+
+        {
+            "errors": {
+                "templates": 
+                    [
+                    "Templates in ids, must be integer."
+                    ]
+                },
+                "message": "Error in process batch create devices."
+        }
+
+        
++ Response 404 (application/json)
+
+    + Headers
+
+	   Content-Type: application/json
+
+    + Body
+        
+        {
+    		"message": "Templates cannot be removed as they are being used by devices",
+  		    "status": 404
+        }
+                    
 # Group Internal
 
 Internal endpoints that can't be accessed outside the platform. They are used for internal services'
